@@ -131,12 +131,12 @@ graph TD
         Local-Dotnet-App -- "Push Metrics" --> AspireDashboard
         EndUser -- "pushes nuget packages" --> BagetterApp
         Local-Dotnet-App -- "works with" --> LocalDBs
-        EndUser -- "Interacts With" --> DotKubeUI --> SQLServerOperator
+        EndUser -- "Interacts With" --> DotKubeUI -- "Manages" --> SQLServerOperator
     end
 
-    SQLServerOperator --> LocalDBs
-    DotKubeUI --> BagetterApp
-    DotKubeUI --> LocalDBs
+    SQLServerOperator -- "Manages" --> LocalDBs
+    DotKubeUI -- "Manages" --> BagetterApp
+    DotKubeUI -- "Manages" --> AspireDashboard
 
 ```
 
