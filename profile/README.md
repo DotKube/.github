@@ -135,6 +135,9 @@ graph TD
     end
 
     SQLServerOperator --> LocalDBs
+    DotKubeUI --> BagetterApp
+    DotKubeUI --> LocalDBs
+
 ```
 
 This diagram illustrates:
