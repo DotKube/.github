@@ -126,8 +126,8 @@ graph TD
     subgraph Laptop ["Laptop"]
         subgraph Cluster ["Local Kubernetes Cluster"]
             AspireDashboard["Aspire Dashboard - Metrics & Visualization"]
-            BagetterApp["Bagetter - Host Nugget Packages"]
-            SQLServerOperator["SQL Server Operator - Manage Local Databases via CRDs"]
+            BagetterApp["Bagetter - Host Nuget Packages"]
+            SQLServerOperator["SQL Server Operator"]
             PipelineAgents["Azure Devops Pipeline Agents"]
             LocalDBs
             DotKubeUI["DotKube UI"]
@@ -136,6 +136,7 @@ graph TD
         Local-Dotnet-App -- "Push Metrics" --> AspireDashboard
         EndUser -- "pushes nuget packages" --> BagetterApp
         Local-Dotnet-App -- "works with" --> LocalDBs
+        Local-Dotnet-App -- "pulls from" --> BagetterApp
         EndUser -- "Interacts With" --> DotKubeUI -- "Manages" --> SQLServerOperator
     end
 
