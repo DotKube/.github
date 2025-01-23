@@ -22,24 +22,42 @@ DotKube is all about enabling developers to work efficiently with Kubernetes usi
 
 ### 2. **Helm Charts & Operators**
    - **SQL Server Helm Chart & Operator**  
-     A Kubernetes operator for managing SQL Server instances, free and open source, deployable via the CLI.
+     Manage SQL Server instances in Kubernetes with a free and open-source operator, deployable via the CLI.
    - **Bagetter Helm Chart & Operator**  
-     Deploy **[Bagetter](https://www.bagetter.com/)** with ease using Helm or a custom operator.
+     Seamlessly deploy **[Bagetter](https://www.bagetter.com/)** with Helm or a custom operator.
    - **Azure Pipeline Agents Helm Chart & Operator**  
-     Self-host Azure Pipeline agents using a dedicated Helm chart.
+     Self-host Azure Pipeline agents with ease using a dedicated Helm chart.
    - **Aspire Dashboard Helm Chart & Operator**  
-     Deploy **[Aspire Dashboard](https://aspiredashboard.com/)** with our Helm chart.
+     Deploy **[Aspire Dashboard](https://aspiredashboard.com/)** effortlessly using Helm.
 
 ---
 
-### 3. **.NET Operator Template**
-   - Create custom Kubernetes operators using a .NET template.
-   - Available via the CLI.
+### 3. **Curated Images**
+   - A set of pre-configured, secure, and optimized container images tailored for development and production workflows, including:
+     - SQL Server images with advanced features such as Full-Text Search (FTS), PolyBase, and High Availability (HA).
+     - Self-hosted pipeline agent images.
+     - AlmaLinux-based SQL Server images.
+     - Custom .NET base images for optimized application development and deployment.
+   - These images simplify setup for complex requirements while adhering to best practices.
 
 ---
 
-### 4. **Comprehensive CLI**
+### 4. **.NET Operator Template**
+   - Quickly create custom Kubernetes operators using a .NET template.
+   - Available via the CLI for easy scaffolding.
+
+---
+
+### 5. **Comprehensive CLI**
    - Install essential tools like Podman, Kind, kubectl, Helm, k9s, Azure Data Studio, Headlamp, and more.
+   - Quickly scaffold templated Docker Compose files for local workflows, with templates for:
+     - SQL Server
+     - Docker Registry
+     - Azure Service Bus Emulator
+     - Azure Event Hubs Emulator
+     - Cosmos DB Emulator
+     - SQS Emulator
+     - etc...
    - Preconfigured templates for .NET applications with features like Aspire Host, Tekton Pipelines, and Taskfiles.
    - Simplify containerization for .NET applications with a CLI wrapper around:
      ```bash
@@ -48,44 +66,6 @@ DotKube is all about enabling developers to work efficiently with Kubernetes usi
    - Quickly install the latest LTS version of .NET, PowerShell Core, Aspire, and other essential tools.
    - Generate Terraform CDK projects in C# with a simple CLI command.
    - Quickly spin up a fully configured Kind (Kubernetes IN Docker) cluster tailored for development.
-
----
-
-## 📊 Architecture Overview
-
-Below is a high-level architecture of a typical DotKube setup:
-
-```mermaid
-graph TD
-    subgraph Laptop ["Laptop"]
-        subgraph Cluster ["Local Kubernetes Cluster"]
-            AspireDashboard["Aspire Dashboard"]
-            BagetterApp["Bagetter"]
-            SQLServerOperator["SQL Server Operator"]
-            LocalDBs
-            DotKubeUI["DotKube UI - Quickly create databases and manage resources"]
-        end
-
-        Local-Dotnet-App -- "Push Metrics" --> AspireDashboard
-        EndUser -- "pushes nuget packages" --> BagetterApp
-        Local-Dotnet-App -- "works with" --> LocalDBs
-        EndUser -- "Interacts With" --> DotKubeUI --> SQLServerOperator
-    end
-
-    SQLServerOperator --> LocalDBs
-```
-
-This diagram illustrates:
-
-- The **Laptop** hosting the **Local Kubernetes Cluster**.
-- Components within the cluster like:
-  - **Aspire Dashboard** for metrics and visualization.
-  - **Bagetter**, a NuGet package app.
-  - **SQL Server Operator** managing local databases.
-  - **DotKube UI** for database creation and resource management.
-- Interactions between:
-  - **Local .NET Apps** pushing metrics to **Aspire Dashboard** and working with local databases.
-  - **End Users** interacting with **Bagetter** and **DotKube UI**, which integrates with the **SQL Server Operator**.
 
 ---
 
