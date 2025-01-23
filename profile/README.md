@@ -29,6 +29,12 @@ DotKube is all about enabling developers to work efficiently with Kubernetes usi
      Self-host Azure Pipeline agents with ease using a dedicated Helm chart.
    - **Aspire Dashboard Helm Chart & Operator**  
      Deploy **[Aspire Dashboard](https://aspiredashboard.com/)** effortlessly using Helm.
+   - **Azure Service Emulators Helm Chart & Operators**  
+     Deploy Kubernetes-native emulators for Azure services, including:
+     - Azure Service Bus Emulator
+     - Azure Event Hubs Emulator
+     - Azure Cosmos DB Emulator
+     - Azurite (Azure Storage Emulator)
 
 ---
 
