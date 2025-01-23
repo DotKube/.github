@@ -128,7 +128,7 @@ graph TD
             AspireDashboard["Aspire Dashboard - Metrics & Visualization"]
             BagetterApp["Bagetter - Host Nugget Packages"]
             SQLServerOperator["SQL Server Operator - Manage Local Databases via CRDs"]
-            PipelineAgents["Azure Pipeline Agents - self-hosted azure-devops agents running in Kubernetes"]
+            PipelineAgents["Azure Devops Pipeline Agents"]
             LocalDBs
             DotKubeUI["DotKube UI"]
         end
