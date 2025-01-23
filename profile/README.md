@@ -56,14 +56,6 @@ DotKube is all about enabling developers to work efficiently with Kubernetes usi
 
 ### 5. **Comprehensive CLI**
    - Install essential tools like Podman, Kind, kubectl, Helm, k9s, Azure Data Studio, Headlamp, and more.
-   - Quickly scaffold templated Docker Compose files for local workflows, with templates for:
-     - SQL Server
-     - Docker Registry
-     - Azure Service Bus Emulator
-     - Azure Event Hubs Emulator
-     - Cosmos DB Emulator
-     - SQS Emulator
-     - etc...
    - Preconfigured templates for .NET applications with features like Aspire Host, Tekton Pipelines, and Taskfiles.
    - Simplify containerization for .NET applications with a CLI wrapper around:
      ```bash
@@ -228,36 +220,3 @@ graph TD
 
 **Description:**  
 Self-hosted pipeline agents are deployed within a Kubernetes cluster, allowing Azure DevOps to manage jobs locally or remotely. This setup gives developers full control over their CI/CD workflows.
-
----
-
-### Description
-
-This architecture includes:
-
-- **Laptop**: The development environment hosting the Kubernetes cluster.
-- **Local Kubernetes Cluster**: A cluster running:
-  - **Aspire Dashboard**: Visualizing application metrics.
-  - **Bagetter**: A NuGet package management app.
-  - **SQL Server Operator**: Managing SQL Server instances.
-  - **Local Databases**: Databases managed by the operator or other tools.
-  - **DotKube UI**: A UI to simplify database creation and resource management.
-- **Interactions**:
-  - **Local .NET Apps**: Push metrics to Aspire Dashboard and interact with local databases.
-  - **End Users**: Interact with Bagetter for package management and DotKube UI for resource operations.
-
---- 
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to get involved.
-
----
-
-## 📄 License
-
-All tools and repositories within the DotKube organization are licensed under [MIT License](LICENSE).
-
----
-
-DotKube: The missing piece for Kubernetes in .NET.
