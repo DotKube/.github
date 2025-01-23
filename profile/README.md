@@ -222,7 +222,7 @@ graph TD
         EndUser["End User"]
     end
 
-    EndUser -- "Uses" --> AzureDevOps["Azure DevOps"]
+    EndUser -- "Uses" --> AzureDevOps["Github / Azure DevOps"]
     AzureDevOps -- "Manages Jobs On" --> PipelineAgents
 ```
 
