@@ -125,16 +125,18 @@ Below is a high-level architecture of a typical DotKube setup:
 graph TD
     subgraph Laptop ["Laptop"]
         subgraph Cluster ["Local Kubernetes Cluster"]
-            AspireDashboard["Aspire Dashboard"]
-            BagetterApp["Bagetter"]
-            SQLServerOperator["SQL Server Operator"]
+            AspireDashboard["Aspire Dashboard - Metrics & Visualization"]
+            BagetterApp["Bagetter - Host Nugget Packages"]
+            SQLServerOperator["SQL Server Operator - Manage Local Databases via CRDs"]
+            PipelineAgents["Azure Pipeline Agents - self-hosted azure-devops agents running in Kubernetes"]
             LocalDBs
-            DotKubeUI["DotKube UI - Quickly create databases and manage resources"]
+            DotKubeUI["DotKube UI"]
         end
 
         Local-Dotnet-App -- "Push Metrics" --> AspireDashboard
         EndUser -- "pushes nuget packages" --> BagetterApp
         Local-Dotnet-App -- "works with" --> LocalDBs
+        Local-Dotnet-App -- "works with" --> PipelineAgents
         EndUser -- "Interacts With" --> DotKubeUI -- "Manages" --> SQLServerOperator
     end
 
