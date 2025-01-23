@@ -6,6 +6,9 @@ DotKube is all about enabling developers to work efficiently with Kubernetes usi
 
 ---
 
+🚧 Warning: Work in Progress
+DotKube is a brand-new initiative, and development is still in its early stages. While excited about the vision and potential of this project, please note that many of the features and tools outlined here are still being actively worked on. Contributions, feedback, and patience are greatly appreciated as we bring these ideas to life!
+
 ## 🚀 What DotKube Plans to Offer
 
 ### 1. **Helm SDK in C#**
