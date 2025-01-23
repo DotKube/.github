@@ -136,13 +136,13 @@ graph TD
         Local-Dotnet-App -- "Push Metrics" --> AspireDashboard
         EndUser -- "pushes nuget packages" --> BagetterApp
         Local-Dotnet-App -- "works with" --> LocalDBs
-        Local-Dotnet-App -- "works with" --> PipelineAgents
         EndUser -- "Interacts With" --> DotKubeUI -- "Manages" --> SQLServerOperator
     end
 
     SQLServerOperator -- "Manages" --> LocalDBs
     DotKubeUI -- "Manages" --> BagetterApp
     DotKubeUI -- "Manages" --> AspireDashboard
+    DotKubeUI -- "Manages" --> PipelineAgents
 
 ```
 
