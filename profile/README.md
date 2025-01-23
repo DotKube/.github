@@ -75,13 +75,172 @@ DotKube aims to empower developers by offering a seamless integration of Kuberne
 
 ---
 
-## 🛠️ Get Started
+## 📊 Architecture Overview
 
-Check out our repositories and start exploring the tools tailored for your Kubernetes and .NET workflows. Have feedback or ideas? Feel free to contribute or start a discussion!
-
-👉 **[Explore DotKube Repositories](https://github.com/DotKube)**
+DotKube simplifies local development and Kubernetes management by integrating various tools and workflows into an intuitive architecture. Below are visual representations of key components and their interactions.
 
 ---
+
+### **Azure Service Emulators**
+
+```mermaid
+graph TD
+    subgraph Laptop ["Laptop"]
+        subgraph Cluster ["Local Kubernetes Cluster"]
+            ServiceBus["Azure Service Bus Emulator"]
+            EventHubs["Azure Event Hubs Emulator"]
+            CosmosDB["Azure Cosmos DB Emulator"]
+            Azurite["Azurite (Azure Storage Emulator)"]
+        end
+
+        EndUser["End User"]
+        DotNetApp["Local DotNet App (Development)"]
+    end
+
+    EndUser -- "Writes" --> DotNetApp
+    DotNetApp -- "Works With" --> ServiceBus
+    DotNetApp -- "Works With" --> EventHubs
+    DotNetApp -- "Works With" --> CosmosDB
+    DotNetApp -- "Works With" --> Azurite
+```
+
+**Description:**  
+This setup includes Azure service emulators running inside a local Kubernetes cluster. Developers write and run their .NET applications on their laptops, which interact with the emulated services for development purposes.
+
+---
+
+### **Databases**
+
+```mermaid
+graph TD
+    subgraph Laptop ["Laptop"]
+        subgraph Cluster ["Local Kubernetes Cluster"]
+            SQLServerOperator["SQL Server Operator"]
+            LocalDBs["'Local' Databases"]
+            DAB["Data API Builder (HTTP API)"]
+        end
+
+        SQLServerOperator -- "Manages" --> LocalDBs
+        SQLServerOperator -- "Manages" --> DAB
+        Local-Dotnet-App -- "Works With" --> DAB
+        Local-Dotnet-App -- "Works With" --> LocalDBs
+        DAB -- "Works With" --> LocalDBs
+    end
+```
+
+**Description:**  
+This architecture features a SQL Server Operator managing local databases and a Data API Builder (DAB) for creating HTTP APIs. The local .NET app interacts with both the DAB and databases for streamlined development.
+
+---
+
+### **DotKube CLI - Image Generator**
+
+```mermaid
+graph TD
+    subgraph Laptop ["Laptop"]
+        EndUser["End User"]
+        DotKubeCLI["DotKube CLI"]
+        LocalDotNetApp["Local DotNet App"]
+    end
+
+    DotNetAppImage["Container Image for DotNet App"]
+    LocalRegistry["Local Registry"]
+    ContainerRegistry["Container Registry"]
+
+    EndUser -- "Works With" --> LocalDotNetApp
+    LocalDotNetApp -- "Wrapper for dotnet publish" --> DotKubeCLI
+    DotKubeCLI -- "Builds" --> DotNetAppImage
+    DotNetAppImage -- "Pushes To" --> LocalRegistry
+    DotNetAppImage -- "Pushes To" --> ContainerRegistry
+```
+
+**Description:**  
+The DotKube CLI streamlines the containerization of .NET applications. It wraps around `dotnet publish` to create container images, which are then pushed to a local or remote container registry.
+
+---
+
+### **Local Registry**
+
+```mermaid
+graph TD
+    subgraph Laptop ["Laptop"]
+        subgraph Cluster ["Local Kind Cluster"]
+        end
+        LocalRegistry["Local Registry"]
+    end
+    CR["Container Registry"]
+
+    LocalRegistry -- "Pulls From" --> CR
+    Cluster -- "Pulls Images From" --> LocalRegistry
+```
+
+**Description:**  
+The local Kubernetes cluster uses a local registry to manage container images. The local registry syncs with an external container registry for pulling base images.
+
+---
+
+### **NuGet Packages**
+
+```mermaid
+graph TD
+    subgraph Laptop ["Laptop"]
+        subgraph Cluster ["Local Kubernetes Cluster"]
+            BagetterApp["Bagetter"]
+            DotKubeUI["DotKube UI/CLI"]
+        end
+
+        Local-Dotnet-App -- "Pulls nuget packages from" --> BagetterApp
+        EndUser -- "Pushes NuGet packages" --> BagetterApp
+        DotKubeUI -- "Manages" --> BagetterApp
+        EndUser -- "Works on" --> Local-Dotnet-App
+
+    end
+
+    NuGet["Official NuGet Feed"]
+    BagetterApp -- "Pulls From" --> NuGet
+```
+
+**Description:**  
+The Bagetter application in the cluster manages NuGet packages. Developers pull packages for their local .NET applications from Bagetter, which itself syncs with the official NuGet feed.
+
+---
+
+### **Self-Hosted Pipelines**
+
+```mermaid
+graph TD
+    subgraph Laptop ["Laptop"]
+        subgraph Cluster ["Local/Remote Cluster"]
+            PipelineAgents["Self-Hosted Pipeline Agents"]
+        end
+        EndUser["End User"]
+    end
+
+    EndUser -- "Uses" --> AzureDevOps["Azure DevOps"]
+    AzureDevOps -- "Manages Jobs On" --> PipelineAgents
+```
+
+**Description:**  
+Self-hosted pipeline agents are deployed within a Kubernetes cluster, allowing Azure DevOps to manage jobs locally or remotely. This setup gives developers full control over their CI/CD workflows.
+
+---
+
+### Description
+
+This architecture includes:
+
+- **Laptop**: The development environment hosting the Kubernetes cluster.
+- **Local Kubernetes Cluster**: A cluster running:
+  - **Aspire Dashboard**: Visualizing application metrics.
+  - **Bagetter**: A NuGet package management app.
+  - **SQL Server Operator**: Managing SQL Server instances.
+  - **Local Databases**: Databases managed by the operator or other tools.
+  - **DotKube UI**: A UI to simplify database creation and resource management.
+- **Interactions**:
+  - **Local .NET Apps**: Push metrics to Aspire Dashboard and interact with local databases.
+  - **End Users**: Interact with Bagetter for package management and DotKube UI for resource operations.
+
+--- 
 
 ## 🤝 Contributing
 
